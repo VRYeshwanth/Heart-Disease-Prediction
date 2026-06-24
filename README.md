@@ -1,129 +1,65 @@
-# 🩺 Heart Disease Classification using Machine Learning
+# Heart Disease Prediction using Machine Learning
 
-## Project Overview
-
-This project explores the application of various machine learning algorithms for predicting heart disease status. The workflow covers the complete machine learning pipeline, including exploratory data analysis (EDA), preprocessing, handling class imbalance, baseline model evaluation, hyperparameter tuning, and model comparison.
-
-The primary objective was to identify the most effective classification model while investigating the impact of class imbalance and hyperparameter optimization on model performance.
+A machine learning project that predicts the presence of heart disease using clinical and diagnostic attributes from the Cleveland Heart Disease dataset. The project includes Exploratory Data Analysis (EDA), data preprocessing, model comparison, hyperparameter tuning, and final model selection.
 
 ---
 
-## Dataset Information
+## 🎯 Project Overview
 
-🔗 Link to Dataset: [Click Here](https://www.kaggle.com/datasets/oktayrdeki/heart-disease/data)
+Heart disease is one of the leading causes of death worldwide. Early detection can help healthcare professionals provide timely treatment and improve patient outcomes.
 
-### Dataset Characteristics
-
-- Total Samples: 10,000
-- Numerical Features: 9
-- Categorical Features: 12
-- Total Features After One-Hot Encoding: 35
-- Target Variable: `Heart Disease Status`
-
-### Target Distribution
-
-| Class                | Percentage |
-| -------------------- | ---------- |
-| No Heart Disease (0) | 80%        |
-| Heart Disease (1)    | 20%        |
-
-The dataset exhibits significant class imbalance, making evaluation metrics such as Recall and F1 Score more important than Accuracy.
+This project aims to build and evaluate multiple machine learning models for heart disease prediction and identify the best-performing model based on classification metrics, with particular emphasis on **Recall**, as minimizing false negatives is important in healthcare applications.
 
 ---
 
-## Exploratory Data Analysis (EDA)
+## 📊 Dataset
 
-### Numerical Features
+### Features
 
-The following numerical features were analyzed:
+| Feature                          | Description                                    |
+| -------------------------------- | ---------------------------------------------- |
+| Age                              | Age of the patient                             |
+| Sex                              | Gender of the patient                          |
+| Chest Pain                       | Type of chest pain experienced                 |
+| Resting BP                       | Resting blood pressure                         |
+| Serum Cholestrol (mg/dl)         | Serum cholesterol level                        |
+| Fasting Blood Sugar (>120 mg/dl) | Fasting blood sugar indicator                  |
+| Resting ECG Result               | Resting electrocardiographic results           |
+| Max Heart Rate                   | Maximum heart rate achieved                    |
+| Angina (Exercise Induced)        | Exercise-induced angina                        |
+| Oldpeak                          | ST depression induced by exercise              |
+| Slope                            | Slope of the peak exercise ST segment          |
+| No. of Major Vessels             | Number of major vessels colored by fluoroscopy |
+| Thal                             | Thalassemia status                             |
+| Target                           | Presence or absence of heart disease           |
 
-- Age
-- Blood Pressure
-- Cholesterol Level
-- BMI
-- Sleep Hours
-- Triglyceride Level
-- Fasting Blood Sugar
-- CRP Level
-- Homocysteine Level
+### Dataset Shape
 
-### EDA Findings
-
-- Numerical features exhibited near-uniform distributions.
-- Logarithmic and square-root transformations were explored.
-- Outlier analysis using boxplots showed minimal extreme outliers.
-- Numerical features displayed extremely weak correlations with one another.
-
-### Correlation Analysis
-
-The correlation matrix revealed:
-
-- Very weak linear relationships between numerical variables.
-- Most correlation coefficients were close to zero.
-- No strong multicollinearity was observed.
-
-### Categorical Features
-
-The following categorical features were analyzed:
-
-- Gender
-- Exercise Habits
-- Smoking
-- Family Heart Disease
-- Diabetes
-- High Blood Pressure
-- Low HDL Cholesterol
-- High HDL Cholesterol
-- Alcohol Consumption
-- Stress Level
-- Sugar Consumption
-
-### Categorical Findings
-
-- Binary categorical variables were approximately 50:50 distributed.
-- Multi-class categorical variables were nearly evenly distributed across categories.
-- Target variable remained the only significantly imbalanced feature.
+- Rows: 304
+- Columns: 14
 
 ---
 
-## Data Preprocessing
+## ⚙️ Project Workflow
 
-### Steps Performed
+### 1. Exploratory Data Analysis (EDA)
 
-1. Train-Test Split
-2. Target Encoding using LabelEncoder
-3. One-Hot Encoding for categorical variables
-4. Standard Scaling for numerical variables
-5. Column-wise transformations using ColumnTransformer
-6. End-to-End preprocessing using Pipelines
+- Analyzed feature distributions using histograms and boxplots.
+- Examined categorical feature distributions using count plots.
+- Identified skewness and outliers in numerical variables.
+- Investigated relationships between features and the target variable.
+- Generated a correlation heatmap to understand feature interactions.
 
-### Preprocessing Pipeline
+### 2. Data Preprocessing
 
-#### Numerical Features
+- Handled categorical variables using One-Hot Encoding.
+- Applied feature scaling where required.
+- Split data into training and testing sets.
+- Built preprocessing pipelines for reproducibility.
 
-- KNNImputer
-- StandardScaler
+### 3. Model Training
 
-#### Categorical Features
-
-- SimpleImputer
-- OneHotEncoder
-
----
-
-## Handling Class Imbalance
-
-To address the imbalance in the target variable, SMOTE (Synthetic Minority Oversampling Technique) was applied within the machine learning pipeline.
-
-### Why SMOTE?
-
-The minority class represented only 20% of the dataset. SMOTE was used to generate synthetic minority samples during training to improve minority-class detection.
-
----
-
-## Models Evaluated
-
-The following machine learning models were trained and evaluated:
+The following classification models were trained and evaluated:
 
 - Logistic Regression
 - K-Nearest Neighbors (KNN)
@@ -133,125 +69,67 @@ The following machine learning models were trained and evaluated:
 - Random Forest
 - XGBoost
 
----
+### 4. Hyperparameter Tuning
 
-## Evaluation Metrics
+GridSearchCV was used to optimize model performance and identify the best hyperparameters.
 
-The following metrics were used:
+### 5. Model Evaluation
+
+Models were compared using:
 
 - Accuracy
 - Precision
 - Recall
 - F1 Score
 
-Since the dataset is imbalanced, F1 Score and Recall were prioritized over Accuracy.
+---
+
+## 🏆 Results
+
+### Baseline Model Performance
+
+| Model               | Accuracy |
+| ------------------- | -------- |
+| Logistic Regression | 82.87%   |
+| KNN                 | 83.85%   |
+| Naive Bayes         | 80.89%   |
+| SVM                 | 80.90%   |
+| Decision Tree       | 74.32%   |
+| Random Forest       | 80.91%   |
+| XGBoost             | 79.93%   |
+
+### Tuned Model Performance
+
+| Model               | Accuracy | Recall |
+| ------------------- | -------- | ------ |
+| Logistic Regression | 81.97%   | 86.21% |
+| KNN                 | 86.89%   | 89.66% |
+| Naive Bayes         | 85.25%   | 86.21% |
+| SVM                 | 86.89%   | 86.21% |
+| Decision Tree       | 70.49%   | 72.41% |
+| Random Forest       | 83.61%   | 82.76% |
+| XGBoost             | 81.97%   | 82.76% |
 
 ---
 
-## Baseline Results (SMOTE Applied)
+## ✅ Final Model Selection
 
-| Model               | Accuracy | Precision | Recall | F1 Score |
-| ------------------- | -------: | --------: | -----: | -------: |
-| Logistic Regression |   0.5095 |    0.1899 | 0.4450 |   0.2663 |
-| KNN                 |   0.4775 |    0.2081 | 0.5750 |   0.3056 |
-| Naive Bayes         |   0.5955 |    0.1859 | 0.3025 |   0.2303 |
-| SVM                 |   0.7075 |    0.1906 | 0.1425 |   0.1631 |
-| Decision Tree       |   0.6595 |    0.1978 | 0.2300 |   0.2127 |
-| Random Forest       |   0.7985 |    0.0000 | 0.0000 |   0.0000 |
-| XGBoost             |   0.7705 |    0.1529 | 0.0325 |   0.0536 |
+### Support Vector Machine (SVM)
 
----
+The SVM model was selected as the final model because:
 
-## Hyperparameter Tuning
-
-GridSearchCV was used to optimize model hyperparameters.
-
-### Cross Validation
-
-- Grid Search Cross Validation
-- Number of Folds: 10
-- Scoring Metric: F1 Score
+- Achieved one of the highest accuracies (**86.89%**).
+- Maintained strong recall (**86.21%**), which is important for identifying heart disease patients.
+- Provides better generalization than instance-based methods such as KNN.
+- Less sensitive to the curse of dimensionality compared to KNN.
 
 ---
 
-## Final Results After Hyperparameter Tuning
-
-| Model               | Accuracy | Precision | Recall | F1 Score |
-| ------------------- | -------: | --------: | -----: | -------: |
-| Logistic Regression |   0.5095 |    0.1900 | 0.4450 |   0.2663 |
-| KNN                 |   0.3890 |    0.2000 | 0.6850 |   0.3096 |
-| Naive Bayes         |   0.5955 |    0.1859 | 0.3025 |   0.2303 |
-| SVM                 |   0.3490 |    0.1965 | 0.7300 |   0.3097 |
-| Decision Tree       |   0.6810 |    0.2069 | 0.2100 |   0.2084 |
-| Random Forest       |   0.7985 |    0.2000 | 0.0025 |   0.0049 |
-| XGBoost             |   0.7905 |    0.1481 | 0.0100 |   0.0187 |
-
----
-
-## Key Findings
-
-### Observations
-
-- Hyperparameter tuning improved SVM significantly.
-- KNN remained one of the strongest performers after tuning.
-- Logistic Regression showed stable but limited performance.
-- Random Forest and XGBoost consistently struggled to identify the minority class.
-- SMOTE improved minority-class detection for KNN and SVM.
-
-### Dataset Insights
-
-Despite:
-
-- Extensive preprocessing
-- Class balancing using SMOTE
-- Hyperparameter optimization
-- Multiple classification algorithms
-
-Performance improvements remained modest.
-
-The EDA revealed:
-
-- Nearly uniform feature distributions
-- Weak relationships between numerical variables
-- Limited separation between classes
-
-These characteristics suggest that the dataset may contain limited predictive signal, restricting the achievable classification performance regardless of model complexity.
-
----
-
-## Technologies Used
-
-### Python Libraries
-
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-Learn
-- Imbalanced-Learn
-- XGBoost
-
-### Machine Learning Concepts
-
-- Data Preprocessing
-- Feature Engineering
-- One-Hot Encoding
-- Standardization
-- Pipelines
-- ColumnTransformer
-- SMOTE
-- Hyperparameter Tuning
-- Cross Validation
-- Classification Metrics
-
----
-
-## Repository Structure
+## 📂 Repository Structure
 
 ```text
 Heart-Disease-Prediction/
 ├── dataset/
-│   ├── cleaned_dataset.csv
 │   └── heart_disease.csv
 ├── notebooks/
 │   ├── 01_eda.ipynb
@@ -263,8 +141,60 @@ Heart-Disease-Prediction/
 
 ---
 
-## Conclusion
+## 💻 Installation
 
-This project demonstrates a complete machine learning workflow for binary classification, including preprocessing, imbalance handling, model evaluation, and hyperparameter optimization.
+1. Clone the repository:
 
-While model performance remained modest, the project provided valuable insights into the limitations of the dataset and highlighted the importance of data quality and predictive signal in machine learning applications.
+```bash
+git clone https://github.com/VRYeshwanth/Heart-Disease-Prediction.git
+cd Heart-Disease-Prediction
+```
+
+2. Create Virtual Environment:
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+3. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## ▶️ Running the Project
+
+Run the notebooks in the following order:
+
+1. `01_eda.ipynb`
+2. `02_preprocessing.ipynb`
+3. `03_model_comparison.ipynb`
+
+---
+
+## 🛠️ Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-Learn
+- XGBoost
+- Jupyter Notebook
+
+---
+
+## 🎓 Key Learnings
+
+- Performing Exploratory Data Analysis on medical datasets.
+- Building preprocessing pipelines for machine learning workflows.
+- Comparing multiple classification algorithms.
+- Applying hyperparameter tuning using GridSearchCV.
+- Evaluating models using healthcare-relevant metrics such as Recall.
+- Selecting an appropriate model based on both performance and generalization.
+
+---
