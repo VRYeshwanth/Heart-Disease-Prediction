@@ -1,11 +1,12 @@
 from pathlib import Path
 import joblib
 import pandas as pd
+import streamlit as st
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 MODEL_PATH = PROJECT_ROOT / "models" / "heart_disease_pipeline.pkl"
 
-
+@st.cache_resource
 def load_pipeline():
     if not MODEL_PATH.exists():
         raise FileNotFoundError(
